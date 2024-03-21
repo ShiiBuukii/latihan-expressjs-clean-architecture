@@ -29,11 +29,10 @@ npm run app
 ```
 
 ### API USER <a name="api_user"></a>
-| endpoint | method | parameter | body |
-| ----- | ----- | ----- | ----- |
-| /login | POST | ```null``` | ```email```,```password``` | 
-| /register | POST | ```null``` | ```firstName```, ```lastName```,```email```,```password``` |
-| ----- | ----- | ----- |
+| endpoint | method | parameter | body | authentication |
+| ----- | ----- | ----- | ----- | ----- |
+| /login | POST | ```null``` | ```email```,```password``` | ```not required``` |
+| /register | POST | ```null``` | ```firstName```, ```lastName```,```email```,```password``` | ```not required``` |
 
 ### API PRODUCT <a name="api_product"></a>
 
