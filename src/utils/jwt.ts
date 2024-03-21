@@ -1,6 +1,7 @@
     import dotenv from "dotenv"
 import { NextFunction , Request, Response} from "express"
 import jwt, { JsonWebTokenError } from "jsonwebtoken"
+import { MiddlewareError, TokenError } from "../core/errors/middlewareError"
 
 export class JWT{
     constructor(){
@@ -11,27 +12,11 @@ export class JWT{
         return jwt.sign({id: id}, `${process.env.JWT_SECRET}`, {expiresIn:process.env.JWT_EXPIRES})
     }
 
-    verify(req: Request, res: Response, next: NextFunction){
-        try{
-            const authHeader = req.headers['authorization']
-            const token = authHeader && authHeader.split(' ')[1].replace(' ', '')
+    verify(token: string){
 
-            console.log("token: ", token)
-
-            if(token ==null) {
-                return res.status(401)
-
-            }
-
-            jwt.verify(token, `${process.env.JWT_SECRET}`, (err,user)=>{
-                if(err) return res.status(403)
-            })
-        next()
-        }catch(error){
-            console.log(error)
-            throw error
-            
-        }
+        jwt.verify(token, `${process.env.JWT_SECRET}`, (err,user)=>{
+            if(err) throw err
+        })
     }
 
 }
